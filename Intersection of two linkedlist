@@ -1,0 +1,33 @@
+
+int findIntersection(Node *headA, Node *headB)
+{
+      int lenA = 0, lenB = 0;
+    Node *pA = headA;
+    while (pA){
+        lenA++;
+        pA = pA->next;
+    }
+    Node *pB = headB;
+    while (pB){
+        lenB++;
+        pB = pB->next;
+    }
+    int dist = lenA - lenB;
+    pA = headA;
+    pB = headB;
+    // make pA and pB at the same position
+    if (dist > 0){
+        for (int i = 0; i < dist; i++)    pA = pA->next;
+        }
+    else{
+        for (int i = 0; i < -dist; i++)    pB = pB->next;
+        }
+    // step by step until the end or the intersection
+    while (pA && pB){
+        if (pA == pB)
+            return pA->data;
+        pA = pA->next;
+        pB = pB->next;
+    }
+    return -1;
+}
