@@ -1,0 +1,46 @@
+ //it is a merged second linked list in 1st it self
+    //it does not uses extra space
+    while(first==NULL && second==NULL)return first;
+    if(first==NULL)return second;
+    if(second==NULL)return first;
+    
+    Node<int>* head;
+    Node<int>* cur=first;
+    Node<int>* prev=NULL;//for tracking prev node of cur
+    while(cur!=NULL && second!=NULL){
+    //if cur->data < sec-data no need to do anything 
+    //just go to next node
+        if(cur ->data < second -> data){
+            if(prev==NULL){ //for setting prev 
+                prev=cur;
+                 cur = cur->next;
+            }
+            else{
+                cur=cur->next;
+                prev =prev->next;
+            }
+
+        }
+        //if first is not true then we have to add second node to in between prev and cur node 
+        //and increase pointer accordingly
+        else{
+            if(prev==NULL){ //for setting prev
+                prev =second;
+                second=second ->next;
+                prev->next=cur;
+                first =prev;
+            }
+            else{
+                prev->next=second;
+                second=second ->next;
+                prev=prev->next;
+                if(prev!=NULL)prev->next =cur;
+            }
+        }
+    }
+    while(second!=NULL){
+        prev ->next =second;
+        prev=prev->next;
+        second=second->next;
+    }
+    return first;
