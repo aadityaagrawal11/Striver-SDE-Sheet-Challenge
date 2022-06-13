@@ -1,0 +1,42 @@
+#include <bits/stdc++.h> 
+/********************************
+
+    Following is the class structure of the Node class:
+    
+    class Node
+    {
+    	public:
+    	    int data;
+    	    Node *next;
+    	    Node(int data)
+    	    {
+    	        this->data = data;
+    	        this->next = NULL;
+    	    }
+    };
+
+********************************/
+
+
+Node *rotate(Node *head, int k) {
+    Node* cur=head;
+    int cnt=1;
+    if(head==NULL || head->next==NULL)return head;
+    while(cur->next!=NULL){
+        cnt++;
+        cur=cur->next;
+    }
+    Node* last=cur;
+    k=k%cnt;
+    cnt-=k;
+    
+    cur=head;
+    while(--cnt){
+        cur=cur->next;
+    }
+    last->next=head;
+    head=cur->next;
+    cur->next=NULL;
+    return head;
+ 
+    }
