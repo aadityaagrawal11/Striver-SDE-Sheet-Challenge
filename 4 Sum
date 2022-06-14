@@ -1,0 +1,43 @@
+#include <bits/stdc++.h> 
+string fourSum(vector<int> nums, int target, int n) {
+         
+        if(nums.size() == 0)return "No";  
+        
+        int size = nums.size();                       
+        sort(nums.begin() ,nums.end());       // Sort array
+        
+        // 4 ptr approach
+        
+        for(int i = 0 ; i<=size-4 ; i++)
+        {
+            for(int j = i+1 ; j<=size-3 ; j++)  {
+                int left = j+1 , right = size-1;
+                long long tar = nums[i]+nums[j];
+                
+                while(left < right ) {
+                    long long sum = nums[left ]+nums[right];
+                    if( (sum + tar) < (long long)target ) left++; //if sum is less than target then increase left pointer
+                    else if((sum+tar) > (long long)target ) right--;        // if sum is greater than target then reduce right pointer
+                    else{
+                                                                        // Here we find sum equal to target, so push it into ans vector
+              
+       
+                        vector<int>v;
+                        v.push_back(nums[i]);
+                        v.push_back(nums[j]);
+                        v.push_back(nums[left]);
+                        v.push_back(nums[right]);
+                        return "Yes";
+        while(left < right && nums[left]==v[2])left++;          // jump through same left pointer value
+        while(left < right && nums[right]==v[3])right--;        // jump through same right pointer value
+     }
+                    
+                }
+                while(j<size-3 && nums[j+1]==nums[j])j++;           //jump through same j pointer value
+            }
+            while(i<size-4 && nums[i+1]==nums[i])i++;               // jump through same i pointer value
+        }
+        return "No";                                                //return ans vector
+    
+    }
+     
