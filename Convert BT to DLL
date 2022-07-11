@@ -1,0 +1,46 @@
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+#include<bits/stdc++.h>
+void inorder(BinaryTreeNode<int>* root, vector<int>& vec)
+{
+    if(!root) return ;
+    
+    inorder(root->left,vec);
+    vec.push_back(root->data);
+    inorder(root->right,vec);
+}
+BinaryTreeNode<int>* BTtoDLL(BinaryTreeNode<int>* root) {
+    
+    vector<int> vec;
+    inorder(root,vec);
+    BinaryTreeNode<int>* newhead = new BinaryTreeNode<int>(-1);
+    BinaryTreeNode<int>* cur = newhead;
+    int i=0;
+    while(i<vec.size())
+    {
+        BinaryTreeNode<int>* temp =new BinaryTreeNode<int>(vec[i]);
+       cur->right = temp;
+        temp->left = cur;
+        cur = temp;
+        i++;
+    }
+    return newhead->right;
+    
+}
