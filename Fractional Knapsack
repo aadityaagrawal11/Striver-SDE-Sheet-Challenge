@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+bool compare(pair<int,int>& item1, pair<int,int>& item2){
+    return ((double)item1.second/item1.first) > 
+           ((double)item2.second/item2.first);
+}
+double maximumValue (vector<pair<int, int>>& items, int n, int w){
+    double result = 0;
+    sort(items.begin(),items.end(),compare);
+    for(int i = 0; i<n; i++){
+        if(items[i].first <= w) 
+            result += items[i].second, w -= items[i].first;
+        else{
+          double currValue = (double)items[i].second/items[i].first * w;
+            result += currValue;
+            break;
+        }
+    }
+    return result;
+}
