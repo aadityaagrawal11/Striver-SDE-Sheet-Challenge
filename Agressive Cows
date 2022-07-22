@@ -1,0 +1,39 @@
+
+#include<bits/stdc++.h>
+bool canPlace(int dist,int cow,vector<int> positions,int n){
+    int count=1;// first cow placed at a[0]
+    int recentplacedat=0;
+    for(int i=1;i<n;i++){
+        if(positions[i]-positions[recentplacedat] >= dist){ // if the room position and prevly placed room pos mein distance agar >= dist hai then can be placed, 
+            count++; // placed increment
+            recentplacedat=i; // recen kaha pe daala woh index store.
+        }
+       if(count==cow)
+        return true;
+ 
+    }
+    return false;
+}
+
+
+int chessTournament(vector<int> positions , int n ,  int c){
+    
+    sort(positions.begin(),positions.end()); 
+    int l=0;
+    int h=positions[n-1]-positions[0];
+    int ans=0;
+    // monotonous space for dist between rooms,
+    /*
+    1 2 3 4 --> l at 1 and h at 4.
+    */
+    while(l<=h){
+        int mid=(l+h)/2;
+        if(canPlace(mid,c,positions,n)){
+            ans=mid;
+            l=mid+1;
+        }
+        else  h=mid-1;
+    }
+    
+    return ans;
+}
